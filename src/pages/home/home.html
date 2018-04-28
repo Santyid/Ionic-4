@@ -1,14 +1,32 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Events
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+ 
+
+  <ion-item>
+      <ion-label fixed>email</ion-label>
+      <ion-input type="text"[(ngModel)]="eventText"> sad </ion-input> 
+    </ion-item>
+    <button (click)="addEvent(eventText)">Click</button>
+
+    <div id="intro2">
+
+        <div *ngFor="let event of events$">
+    
+            <table class="racete"
+                   id="racetimes"
+                   border=" 2px">    
+                <tr>                  
+                    <td> {{event.word}}</td>                   
+                </tr>
+                <tr> <button (click)="goToDetailEvent(event)">Detalle Evento</button></tr>
+            </table>
+        </div>
+      </div>
 </ion-content>

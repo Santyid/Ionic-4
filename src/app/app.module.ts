@@ -8,6 +8,7 @@ import { Camera } from '@ionic-native/camera';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 import { environment } from './credenciales';
 
@@ -22,7 +23,8 @@ import { ActionsProvider } from '../providers/actions/actions';
 		IonicModule.forRoot(MyApp),
 		AngularFirestoreModule,
 		AngularFireModule.initializeApp(environment),
-		AngularFireAuthModule
+		AngularFireAuthModule,
+		AngularFireStorageModule
 	],
 	bootstrap: [ IonicApp ],
 	entryComponents: [ MyApp, HomePage ],

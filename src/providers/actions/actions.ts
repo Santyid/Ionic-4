@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
+import firebase from 'firebase';
+
+import { AngularFireStorage } from 'angularfire2/storage';
 
 /*
   Generated class for the ActionsProvider provider.
@@ -12,7 +15,11 @@ import { AngularFireAuth } from 'angularfire2/auth';
 */
 @Injectable()
 export class ActionsProvider {
-	constructor(private db: AngularFirestore, public afAth: AngularFireAuth) {
+	constructor(
+		private db: AngularFirestore,
+		public afAth: AngularFireAuth,
+		public Storage: AngularFireStorage
+	) {
 		console.log('Hello ActionsProvider Provider');
 	}
 
@@ -40,5 +47,23 @@ export class ActionsProvider {
 
 	viewPicture(event: eventWord) {
 		return this.db.collection<eventWord>('event/' + event.id + '/' + 'list').valueChanges();
+	}
+
+	createImage(event: eventWord, image: string) {
+		
+		this.Storage.storage
+			.ref(`/guestProfile/profilePicture.png`)
+			.putString(image, 'base64', {
+				contentType: 'image/png'
+			})
+			.then((savedPicture) => {
+				const id = this.db.createId();
+				this.db
+					.collection('event')
+					.doc(event.id)
+					.collection('list')
+					.doc(id)
+					.set({ this.savedPicture.downloadURL });
+			});
 	}
 }

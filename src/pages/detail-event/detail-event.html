@@ -27,18 +27,11 @@
                           <td> {{event.nombre}}</td>                   
                       </tr>
                   </table>
+                  <button (click)="goToAddUser()">Detalle Evento</button>
               </div>
       
-
-              <ion-card>
-                  <ion-card-content>
-                      <ion-icon name="contact">
-                    <img  [src]="base64Image" *ngIf="base64Image"/>
-                  </ion-icon>
-                  </ion-card-content>
-                </ion-card>  
-                
-                <button ion-button (click)="takePicture()">Change Image</button>
+            
+             
 
   
 </ion-content>

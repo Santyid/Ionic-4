@@ -1,10 +1,12 @@
+import { AddUserPage } from './../add-user/add-user';
 import { eventWord } from './../../app/event.interface';
 import { userWord } from './../../app/user.interface';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+
 import { ActionsProvider } from '../../providers/actions/actions';
 
+import { AngularFireStorageModule } from 'angularfire2/storage';
 /**
  * Generated class for the DetailEventPage page.
  *
@@ -20,7 +22,7 @@ import { ActionsProvider } from '../../providers/actions/actions';
 export class DetailEventPage {
 	eventWord: eventWord;
 	eventWord2: eventWord[];
-	base64Image: string;
+
 	eventname: string;
 	listaInvitados: userWord[];
 	id: number;
@@ -28,11 +30,14 @@ export class DetailEventPage {
 	constructor(
 		public navCtrl: NavController,
 		public navParams: NavParams,
-		public actionProvider: ActionsProvider,
-		public cameraPlugin: Camera
+		public actionProvider: ActionsProvider
 	) {
 		this.eventWord = navParams.get('currentItem');
 		this.selectList(this.eventWord);
+	}
+
+	goToAddUser(): void {
+		this.navCtrl.push('AddUserPage', { currentItem: this.eventWord });
 	}
 
 	addlist(nombre: string) {
@@ -48,25 +53,5 @@ export class DetailEventPage {
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad DetailEventPage');
-	}
-
-	takePicture(): void {
-		const options: CameraOptions = {
-			quality: 100,
-			destinationType: this.cameraPlugin.DestinationType.DATA_URL,
-			encodingType: this.cameraPlugin.EncodingType.JPEG,
-			mediaType: this.cameraPlugin.MediaType.PICTURE
-		};
-
-		this.cameraPlugin.getPicture(options).then(
-			(imageData) => {
-				// imageData is either a base64 encoded string or a file URI
-				// If it's base64:
-				this.base64Image = 'data:image/jpeg;base64,' + imageData;
-			},
-			(err) => {
-				// Handle error
-			}
-		);
 	}
 }

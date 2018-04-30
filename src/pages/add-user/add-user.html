@@ -1,0 +1,30 @@
+<!--
+  Generated template for the AddUserPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>addUser</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-card>
+        <ion-card-content>
+            <ion-icon name="contact">
+          <img  [src]="base64Image" *ngIf="base64Image"/>
+        </ion-icon>
+        </ion-card-content>
+      </ion-card>  
+      
+      <button ion-button (click)="takePicture()">Change Image</button>
+
+      <button ion-button (click)="uploadPicture()">subir Image</button>
+
+</ion-content>

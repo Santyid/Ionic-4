@@ -11,7 +11,7 @@ export class HomePage {
 	eventText: string;
 	events$: eventWord[];
 
-	constructor(public navCtrl: NavController, private actionProvider: ActionsProvider) {
+	constructor(public navCtrl: NavController, public actionProvider: ActionsProvider) {
 		this.selectAllEvents();
 	}
 

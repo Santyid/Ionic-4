@@ -21,7 +21,7 @@ export class LoginPage {
 	constructor(
 		public navCtrl: NavController,
 		public navParams: NavParams,
-		private actionsProvider: ActionsProvider
+		public actionsProvider: ActionsProvider
 	) {}
 
 	Login(email: string, password: string) {

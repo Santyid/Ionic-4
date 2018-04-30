@@ -3,10 +3,12 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { Camera } from '@ionic-native/camera';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+
 import { environment } from './credenciales';
 
 import { MyApp } from './app.component';
@@ -18,8 +20,8 @@ import { ActionsProvider } from '../providers/actions/actions';
 	imports: [
 		BrowserModule,
 		IonicModule.forRoot(MyApp),
-		AngularFireModule.initializeApp(environment),
 		AngularFirestoreModule,
+		AngularFireModule.initializeApp(environment),
 		AngularFireAuthModule
 	],
 	bootstrap: [ IonicApp ],
@@ -27,6 +29,7 @@ import { ActionsProvider } from '../providers/actions/actions';
 	providers: [
 		StatusBar,
 		SplashScreen,
+		Camera,
 		{ provide: ErrorHandler, useClass: IonicErrorHandler },
 		ActionsProvider
 	]

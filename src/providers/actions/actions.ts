@@ -1,8 +1,8 @@
+import { eventWord } from './../../app/event.interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { eventWord } from '../../app/event.interface';
 
 /*
   Generated class for the ActionsProvider provider.
@@ -18,6 +18,7 @@ export class ActionsProvider {
 
 	addEvent(word: string) {
 		const id = this.db.createId();
+		const idEvent = this.db.createId();
 		this.db.collection('event').doc(id).set({ id, word });
 	}
 
@@ -30,5 +31,14 @@ export class ActionsProvider {
 			const id = this.db.createId();
 			this.db.collection('user').doc(id).set({ id, email, password });
 		});
+	}
+
+	addGuest(event: eventWord, nombre: string) {
+		const id = this.db.createId();
+		this.db.collection('event').doc(event.id).collection('list').doc(id).set({ nombre });
+	}
+
+	viewPicture(event: eventWord) {
+		return this.db.collection<eventWord>('event/' + event.id + '/' + 'list').valueChanges();
 	}
 }

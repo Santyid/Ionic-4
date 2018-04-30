@@ -6,10 +6,41 @@
   </ion-navbar>
 
 </ion-header>
-
-
-
-
 <ion-content padding>
-    {{eventWord.word}}
+
+    <ion-item>
+        <ion-label fixed>email</ion-label>
+        <ion-input type="text"[(ngModel)]="eventname">  </ion-input> 
+      </ion-item>
+      <button (click)="addlist(eventname)">Click</button>
+
+
+                       
+              {{eventWord.word}}                 
+       
+              <div *ngFor="let event of eventWord2">
+    
+                  <table class="racete"
+                         id="racetimes"
+                         border=" 2px">    
+                      <tr>                  
+                          <td> {{event.nombre}}</td>                   
+                      </tr>
+                  </table>
+              </div>
+      
+
+              <ion-card>
+                  <ion-card-content>
+                      <ion-icon name="contact">
+                    <img  [src]="base64Image" *ngIf="base64Image"/>
+                  </ion-icon>
+                  </ion-card-content>
+                </ion-card>  
+                
+                <button ion-button (click)="takePicture()">Change Image</button>
+
+  
 </ion-content>
+
+

@@ -1,8 +1,8 @@
 import { ActionsProvider } from './../../providers/actions/actions';
 import { eventWord } from './../../app/event.interface';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AngularFireStorage } from 'angularfire2/storage';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
 /**
@@ -18,41 +18,51 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 	templateUrl: 'add-user.html'
 })
 export class AddUserPage {
-	base64Image: string;
+	base64Image: string = null;
 	eventWord: eventWord;
-	imageData;
+	eventname: string;
 
 	constructor(
 		public navCtrl: NavController,
 		public navParams: NavParams,
 		public cameraPlugin: Camera,
-		public actionsProvider: ActionsProvider
+		public actionsProvider: ActionsProvider,
+		public alertCtrl: AlertController
 	) {
 		this.eventWord = navParams.get('currentItem');
 		console.log(this.eventWord.id);
 	}
 
 	takePicture(): void {
-		const options: CameraOptions = {
-			quality: 100,
-			destinationType: this.cameraPlugin.DestinationType.DATA_URL,
-			encodingType: this.cameraPlugin.EncodingType.JPEG,
-			mediaType: this.cameraPlugin.MediaType.PICTURE
-		};
-
-		this.cameraPlugin.getPicture(options).then(
-			(imageData) => {
-				// imageData is either a base64 encoded string or a file URI
-				// If it's base64:
-				this.base64Image = imageData;
-			},
-			(err) => {
-				// Handle error
-			}
-		);
+		this.cameraPlugin
+			.getPicture({
+				quality: 95,
+				destinationType: this.cameraPlugin.DestinationType.DATA_URL,
+				sourceType: this.cameraPlugin.PictureSourceType.CAMERA,
+				allowEdit: true,
+				encodingType: this.cameraPlugin.EncodingType.PNG,
+				targetWidth: 500,
+				targetHeight: 500,
+				saveToPhotoAlbum: true
+			})
+			.then(
+				(imageData) => {
+					this.base64Image = imageData;
+				},
+				(error) => {
+					console.log('ERROR -> ' + JSON.stringify(error));
+				}
+			);
 	}
-	uploadPicture(): void {
-		this.actionsProvider.createImage(this.eventWord, this.base64Image);
+	uploadPicture(eventaName: string): void {
+		console.log(this.base64Image);
+		this.actionsProvider.createImage(this.eventWord, eventaName, this.base64Image);
+		let alert = this.alertCtrl.create({
+			title: 'Registro Exitoso!!!',
+			subTitle: 'Tu registro se hizo correctamente',
+			buttons: [ 'Aceptar' ]
+		});
+		alert.present();
 	}
 
 	ionViewDidLoad() {

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Events
+      Eventos
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -9,24 +9,26 @@
 <ion-content padding>
  
 
-  <ion-item>
-      <ion-label fixed>email</ion-label>
-      <ion-input type="text"[(ngModel)]="eventText"> sad </ion-input> 
-    </ion-item>
-    <button (click)="addEvent(eventText)">Click</button>
+    <ion-card>
+        <img src="assets/imgs/eve.jpg" />
+      </ion-card>
 
-    <div id="intro2">
 
-        <div *ngFor="let event of events$">
-    
-            <table class="racete"
-                   id="racetimes"
-                   border=" 2px">    
-                <tr>                  
-                    <td> {{event.word}}</td>                   
-                </tr>
-                <tr> <button (click)="goToDetailEvent(event)">Detalle Evento</button></tr>
-            </table>
-        </div>
-      </div>
+    <ion-card>
+        <ion-card-header>
+          Eventos
+        </ion-card-header>      
+        
+
+        <ion-list *ngFor="let event of events$">
+          <button ion-item (click)="goToDetailEvent(event)">
+            <ion-icon name="bookmarks" item-start></ion-icon>
+            {{event.word}}
+          </button>      
+          
+        </ion-list>
+      </ion-card>    
+
+      <button ion-button block (click)="goToCreateEvent()">Agregar un nuevo evento</button>
+
 </ion-content>

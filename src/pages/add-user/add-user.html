@@ -14,17 +14,25 @@
 
 
 <ion-content padding>
-
     <ion-card>
-        <ion-card-content>
-            <ion-icon name="contact">
-          <img  [src]="base64Image" *ngIf="base64Image"/>
-        </ion-icon>
-        </ion-card-content>
-      </ion-card>  
-      
-      <button ion-button (click)="takePicture()">Change Image</button>
+        <img src="assets/imgs/eventos.jpg" />
+      </ion-card>
+   
+  <h5>Agregar Invitado</h5>
 
-      <button ion-button (click)="uploadPicture()">subir Image</button>
+  <ion-item>
+      <ion-label fixed>Nombre :</ion-label>
+      <ion-input type="text"[(ngModel)]="eventname" ></ion-input> 
+
+      
+    </ion-item>   
+    <span *ngIf="base64Image">Picture taken!</span>
+    <button ion-button icon-only (click)="takePicture()">
+        <ion-icon name="camera"></ion-icon>
+      </button>
+    <button ion-button block (click)="uploadPicture(eventname)">Agregar Invitado</button>
+
+    
+      
 
 </ion-content>

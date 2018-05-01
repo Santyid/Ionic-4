@@ -23,10 +23,10 @@ export class ActionsProvider {
 		console.log('Hello ActionsProvider Provider');
 	}
 
-	addEvent(word: string) {
+	addEvent(word: string, place: string, description: string) {
 		const id = this.db.createId();
 		const idEvent = this.db.createId();
-		this.db.collection('event').doc(id).set({ id, word });
+		this.db.collection('event').doc(id).set({ id, word, place, description });
 	}
 
 	selectAllEvents() {
@@ -42,28 +42,31 @@ export class ActionsProvider {
 
 	addGuest(event: eventWord, nombre: string) {
 		const id = this.db.createId();
-		this.db.collection('event').doc(event.id).collection('list').doc(id).set({ nombre });
+		this.db.collection('event').doc(event.id).collection('list').doc(id).set({ id, nombre });
 	}
 
 	viewPicture(event: eventWord) {
 		return this.db.collection<eventWord>('event/' + event.id + '/' + 'list').valueChanges();
 	}
 
-	createImage(event: eventWord, image: string) {
-		
-		this.Storage.storage
-			.ref(`/guestProfile/profilePicture.png`)
-			.putString(image, 'base64', {
-				contentType: 'image/png'
-			})
-			.then((savedPicture) => {
-				const id = this.db.createId();
-				this.db
-					.collection('event')
-					.doc(event.id)
-					.collection('list')
-					.doc(id)
-					.set({ this.savedPicture.downloadURL });
-			});
+	createImage(event: eventWord, nombre: string, image: string = null) {
+		if (image != null) {
+			const idList = this.db.createId();
+			this.Storage.storage
+				.ref(`/picture/${idList}/profilePicture.png`)
+				.putString(image, 'base64', {
+					contentType: 'image/png'
+				})
+				.then((savedPicture) => {
+					const image = savedPicture.downloadURL;
+
+					this.db
+						.collection('event')
+						.doc(event.id)
+						.collection('list')
+						.doc(idList)
+						.set({ idList, nombre, image });
+				});
+		}
 	}
 }

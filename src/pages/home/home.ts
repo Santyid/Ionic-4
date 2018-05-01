@@ -1,3 +1,5 @@
+import { AddUserPage } from './../add-user/add-user';
+import { AddEventPage } from './../add-event/add-event';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { eventWord } from '../../app/event.interface';
@@ -8,15 +10,14 @@ import { ActionsProvider } from '../../providers/actions/actions';
 	templateUrl: 'home.html'
 })
 export class HomePage {
-	eventText: string;
 	events$: eventWord[];
 
 	constructor(public navCtrl: NavController, public actionProvider: ActionsProvider) {
 		this.selectAllEvents();
 	}
 
-	addEvent(event: string) {
-		this.actionProvider.addEvent(event);
+	goToCreateEvent(): void {
+		this.navCtrl.push('AddEventPage');
 	}
 
 	selectAllEvents() {
